@@ -44,7 +44,7 @@ void Render() {
     if (!S_Show)
         return;
 
-    UI::Begin(title, S_Show, UI::WindowFlags::AlwaysAutoResize);
+    if (UI::Begin(title, S_Show, UI::GetDefaultWindowFlags() | UI::WindowFlags::AlwaysAutoResize)) {
         UI::SetNextItemWidth(142.0f);
         authorInput = UI::InputFloat("##input", authorInput);
 
@@ -102,6 +102,8 @@ void Render() {
 
             UI::EndTable();
         }
+    }
+
     UI::End();
 }
 
