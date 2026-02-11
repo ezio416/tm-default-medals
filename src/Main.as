@@ -1,6 +1,3 @@
-// c 2024-01-01
-// m 2024-01-25
-
 float  authorInput = 0.0f;
 uint   authorTime  = 0;
 uint   calcBronze  = 0;
