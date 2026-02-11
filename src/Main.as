@@ -44,7 +44,7 @@ void Render() {
     if (!S_Show)
         return;
 
-    if (UI::Begin(title, S_Show, UI::WindowFlags::AlwaysAutoResize)) {
+    if (UI::Begin(title, S_Show, UI::GetDefaultWindowFlags() | UI::WindowFlags::AlwaysAutoResize)) {
         UI::SetNextItemWidth(142.0f);
         authorInput = UI::InputFloat("##input", authorInput);
 
@@ -117,11 +117,11 @@ uint[] CalcMedals(uint author) {
 }
 
 CGameCtnChallenge@ GetMap() {
-// #if TMNEXT || MP4
-//     return GetApp().RootMap;
-// #elif TURBO || FOREVER
+#if TMNEXT || MP4
+    return GetApp().RootMap;
+#elif TURBO || FOREVER
     return GetApp().Challenge;
-// #endif
+#endif
 }
 
 uint[] GetMapMedals() {
