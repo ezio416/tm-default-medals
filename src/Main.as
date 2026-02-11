@@ -44,7 +44,7 @@ void Render() {
     if (!S_Show)
         return;
 
-    if (UI::Begin(title, S_Show, UI::GetDefaultWindowFlags() | UI::WindowFlags::AlwaysAutoResize)) {
+    if (UI::Begin(title, S_Show, UI::WindowFlags::AlwaysAutoResize)) {
         UI::SetNextItemWidth(142.0f);
         authorInput = UI::InputFloat("##input", authorInput);
 
@@ -117,24 +117,29 @@ uint[] CalcMedals(uint author) {
 }
 
 CGameCtnChallenge@ GetMap() {
-#if TMNEXT || MP4
-    return GetApp().RootMap;
-#elif TURBO
+// #if TMNEXT || MP4
+//     return GetApp().RootMap;
+// #elif TURBO || FOREVER
     return GetApp().Challenge;
-#endif
+// #endif
 }
 
 uint[] GetMapMedals() {
     CGameCtnChallenge@ Map = GetMap();
 
-    if (Map is null || Map.TMObjective_AuthorTime == uint(-1))
+    if (false
+        or Map is null
+        or Map.ChallengeParameters is null
+        or Map.ChallengeParameters.AuthorTime == uint(-1)
+    ) {
         return { 0, 0, 0, 0 };
+    }
 
     return {
-        Map.TMObjective_AuthorTime,
-        Map.TMObjective_GoldTime,
-        Map.TMObjective_SilverTime,
-        Map.TMObjective_BronzeTime
+        Map.ChallengeParameters.AuthorTime,
+        Map.ChallengeParameters.GoldTime,
+        Map.ChallengeParameters.SilverTime,
+        Map.ChallengeParameters.BronzeTime
     };
 }
 
