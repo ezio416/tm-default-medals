@@ -108,9 +108,9 @@ void Render() {
 uint[] CalcMedals(uint author) {
     return {
         author,
-        uint(Math::Floor((author * 1.06f + 1000.0f) / 1000.0f) * 1000.0f),
-        uint(Math::Floor((author * 1.2f  + 1000.0f) / 1000.0f) * 1000.0f),
-        uint(Math::Floor((author * 1.5f  + 1000.0f) / 1000.0f) * 1000.0f)
+        uint(Math::Floor(author * 0.00106f + 1.0f) * 1000.0f),
+        uint(Math::Floor(author * 0.0012f  + 1.0f) * 1000.0f),
+        uint(Math::Floor(author * 0.0015f  + 1.0f) * 1000.0f)
     };
 }
 
