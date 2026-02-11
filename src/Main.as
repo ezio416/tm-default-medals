@@ -62,7 +62,7 @@ void Render() {
             }
         UI::EndDisabled();
 
-        UI::BeginDisabled(GetApp().RootMap is null);
+        UI::BeginDisabled(GetMap() is null);
         if (UI::Button("Get medals from current map"))
             SetMapMedals();
         UI::EndDisabled();
@@ -116,27 +116,35 @@ uint[] CalcMedals(uint author) {
     };
 }
 
-uint[] GetMapMedals() {
-    CTrackMania@ App = cast<CTrackMania@>(GetApp());
+CGameCtnChallenge@ GetMap() {
+#if TMNEXT || MP4
+    return GetApp().RootMap;
+#elif TURBO
+    return GetApp().Challenge;
+#endif
+}
 
-    if (App.RootMap is null || App.RootMap.TMObjective_AuthorTime == uint(-1))
+uint[] GetMapMedals() {
+    CGameCtnChallenge@ Map = GetMap();
+
+    if (Map is null || Map.TMObjective_AuthorTime == uint(-1))
         return { 0, 0, 0, 0 };
 
     return {
-        App.RootMap.TMObjective_AuthorTime,
-        App.RootMap.TMObjective_GoldTime,
-        App.RootMap.TMObjective_SilverTime,
-        App.RootMap.TMObjective_BronzeTime
+        Map.TMObjective_AuthorTime,
+        Map.TMObjective_GoldTime,
+        Map.TMObjective_SilverTime,
+        Map.TMObjective_BronzeTime
     };
 }
 
 bool InEditor(CTrackMania@ App) {
-    return App.Editor !is null && App.RootMap !is null;
+    return App.Editor !is null && GetMap() !is null;
 }
 
 bool InMap(CTrackMania@ App) {
     return App.Editor is null
-        && App.RootMap !is null
+        && GetMap() !is null
         && App.CurrentPlayground !is null;
 }
 
