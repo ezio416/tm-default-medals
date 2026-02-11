@@ -137,9 +137,7 @@ bool InEditor(CTrackMania@ App) {
 bool InMap(CTrackMania@ App) {
     return App.Editor is null
         && App.RootMap !is null
-        && App.CurrentPlayground !is null
-        && App.Network !is null
-        && App.Network.ClientManiaAppPlayground !is null;
+        && App.CurrentPlayground !is null;
 }
 
 void SetMapMedals() {
